@@ -1,5 +1,6 @@
 #include <QString>
 #include <QSqlQuery>
+#include <QSqlDatabase>
 #include "structures.h"
 #ifndef ANIMAL_H
 #define ANIMAL_H
@@ -24,16 +25,16 @@ public:
     void addAnimal();
     void updateAnimal();
     void delAnimal();
-    virtual int getID();
-    virtual int getAge();
-    virtual QString getSex();
-    virtual QString getName();
-    virtual QString getCaretakerName();
-    virtual QString getVeterinarianName();
-    virtual QString getLivingAreaName();
-    virtual QString getLivingAreaCharacteristic();
-    virtual QString getRation();
-    virtual QString getRationType();
+    virtual int getID() = 0;
+    virtual int getAge() = 0;
+    virtual QString getSex() = 0;
+    virtual QString getName() = 0;
+    virtual QString getCaretakerName() = 0;
+    virtual QString getVeterinarianName() = 0;
+    virtual QString getLivingAreaName() = 0;
+    virtual QString getLivingAreaCharacteristic() = 0;
+    virtual QString getRation() = 0;
+    virtual QString getRationType() = 0;
 
 protected:
     QSqlQuery *query;

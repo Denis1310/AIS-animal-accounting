@@ -18,6 +18,7 @@ HEADERS += \
     animal.h \
     employee.h \
     mainwindow.h \
+    queries.h \
     structures.h
 
 FORMS += \
