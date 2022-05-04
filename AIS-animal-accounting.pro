@@ -10,12 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     animal.cpp \
+    database.cpp \
     employee.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     animal.h \
+    database.h \
     employee.h \
     mainwindow.h \
     queries.h \
