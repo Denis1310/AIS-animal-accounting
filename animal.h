@@ -8,7 +8,7 @@
 class Animal
 {
 protected:
-    int id;
+    QString id;
     int age;
     QString sex;
     QString name;
@@ -21,7 +21,6 @@ protected:
 public:
     Animal();
     ~Animal();
-    void setValues();
     void addAnimal();
     void updateAnimal();
     void delAnimal();

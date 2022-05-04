@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     animal.cpp \
+    bird.cpp \
     database.cpp \
     employee.cpp \
     main.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     animal.h \
+    bird.h \
     database.h \
     employee.h \
     mainwindow.h \
