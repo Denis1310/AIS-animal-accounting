@@ -10,7 +10,7 @@ Animal::~Animal()
     delete this->query;
 }
 
-int Animal::getID()
+QString Animal::getID()
 {
     return this->id;
 }

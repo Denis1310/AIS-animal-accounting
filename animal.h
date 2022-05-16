@@ -24,7 +24,7 @@ public:
     void addAnimal();
     void updateAnimal();
     void delAnimal();
-    virtual int getID() = 0;
+    virtual QString getID() = 0;
     virtual int getAge() = 0;
     virtual QString getSex() = 0;
     virtual QString getName() = 0;
@@ -38,7 +38,6 @@ public:
 protected:
     QSqlQuery *query;
     void syncWithDb();
-    void setValuesInDb();
 };
 
 #endif // ANIMAL_H

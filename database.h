@@ -2,6 +2,8 @@
 #include <QSqlQuery>
 #include <QFile>
 #include <QDir>
+#include <QSqlError>
+#include <QDebug>
 #ifndef DATABASE_H
 #define DATABASE_H
 
@@ -12,10 +14,10 @@ private:
     QSqlQuery *query;
     void checkExistsDbFile();
     void directoryCheck();
-    bool createDbFile();
-    bool fillRationInDb();
-    bool fillRationTypeInDb();
-    bool fillLivingAreasInDb();
+    void createDbFile();
+    void fillRationInDb();
+    void fillRationTypeInDb();
+    void fillLivingAreasInDb();
 
 public:
     DataBase();
