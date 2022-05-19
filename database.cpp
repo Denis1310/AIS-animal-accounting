@@ -209,7 +209,7 @@ void DataBase::fillLivingAreasInDb()
         "INSERT INTO LivingArea ("
         "   living_area_name,"
         "   living_area_characteristic,"
-        ") VALUES "
+        ") VALUES"
         "('1 зона', 'для птахів'),"
         "('2 зона', 'для птахів'),"
         "('3 зона', 'для птахів'),"
@@ -224,7 +224,7 @@ void DataBase::fillLivingAreasInDb()
         "('12 зона', 'для ссавців'),"
         "('13 зона', 'для ссавців'),"
         "('14 зона', 'для ссавців'),"
-        "('15 зона', 'для ссавців'),"
+        "('15 зона', 'для ссавців');"
     );
 
     this->db.close();

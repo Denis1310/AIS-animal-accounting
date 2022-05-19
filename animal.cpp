@@ -59,18 +59,3 @@ QString Animal::getRationType()
 {
     return this->ration_type;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

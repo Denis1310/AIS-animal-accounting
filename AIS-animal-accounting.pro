@@ -14,7 +14,9 @@ SOURCES += \
     database.cpp \
     employee.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    mammal.cpp \
+    reptile.cpp
 
 HEADERS += \
     animal.h \
@@ -22,7 +24,9 @@ HEADERS += \
     database.h \
     employee.h \
     mainwindow.h \
+    mammal.h \
     queries.h \
+    reptile.h \
     structures.h
 
 FORMS += \

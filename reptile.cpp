@@ -1,34 +1,49 @@
-#include "bird.h"
+#include "reptile.h"
 
-Bird::Bird()
+Reptile::Reptile()
 {
 
 }
 
-Bird::~Bird()
+Reptile::~Reptile()
 {
     delete this->query;
 }
 
-void Bird::addAnimal(QString id, QString name, int age, QString sex, QString country_code, QString country_name,QString start_date, QString end_date, QString la_name, QString la_characteristic, QString caretaker_name, QString veterinarian_name,QString ration, QString ration_type)
+QString Reptile::getAvTemperature()
+{
+    return this->average_temperature;
+}
+
+QString Reptile::getStartDate()
+{
+    return this->wintering_start_date;
+}
+
+QString Reptile::getEndDate()
+{
+    return this->wintering_end_date;
+}
+
+void Reptile::addAnimal(QString id, QString name, int age, QString sex,QString av_temp, QString wint_st_d,QString wint_en_d, QString l_a_name, QString l_a_characteristic, QString caretaker_name, QString veterinarian_name, QString ration_name, QString ration_type)
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(".\\data\\database.db");
-    db.open();
 
-        this->query = new QSqlQuery();
+    this->db.open();
+
+    query = new QSqlQuery();
 
     query->prepare(
-        "INSERT INTO Bird"
+        "INSERT INTO Reptile"
         "("
-        "    identifier,"
+        "    identifier, "
         "    name,"
         "    age,"
         "    sex,"
-        "    country_code,"
-        "    country_name,"
-        "    start_date, "
-        "    end_date,"
+        "    avarage_temperature,"
+        "    wintering_start_date,"
+        "    wintering_end_date,"
         "    fk_l_a_id, "
         "    fk_c_id, "
         "    fk_v_id,"
@@ -41,12 +56,11 @@ void Bird::addAnimal(QString id, QString name, int age, QString sex, QString cou
         "    :name,"
         "    :age,"
         "    :sex,"
-        "    :country_code,"
-        "    :country_name,"
-        "    :start_date,"
-        "    :end_date,"
+        "    :avarage_temperature,"
+        "    :wintering_start_date,"
+        "    :wintering_end_date"
         "    SELECT living_area_id FROM LivingArea "
-        "      WHERE living_area_name = :living_area_name "
+        "      WHERE living_area_name = :living_area_name"
         "      AND living_area_charactetistic = :living_area_charactetistic,"
         "    SELECT caretaker_id FROM Caretaker "
         "      WHERE full_name = :caretaker_full_name,"
@@ -56,8 +70,9 @@ void Bird::addAnimal(QString id, QString name, int age, QString sex, QString cou
         "      WHERE ration_name  = :ration_name,"
         "    SELECT ration_type_id FROM RationType "
         "      WHERE ration_type_name  = :ration_type_name"
-        ");");
-
+        ");"
+    );
+    // : <--> + ?
     query->bindValue(
         ":identifier", id
     );
@@ -71,88 +86,62 @@ void Bird::addAnimal(QString id, QString name, int age, QString sex, QString cou
         ":sex", sex
     );
     query->bindValue(
-        ":country_code", country_code
+        ":avarage_temperature", av_temp
     );
     query->bindValue(
-        ":country_name", country_name
+        ":wintering_start_date", wint_st_d
     );
     query->bindValue(
-        ":start_date", start_date
+        ":wintering_end_date", wint_en_d
     );
     query->bindValue(
-        ":end_date", end_date
+        ":living_area_name", l_a_name
     );
     query->bindValue(
-        ":living_area_name", la_name
-    );
-    query->bindValue(
-        ":living_area_characteristic",
-          la_characteristic
+        ":living_area_characteristic", l_a_characteristic
     );
     query->bindValue(
         ":caretaker_full_name", caretaker_name
     );
     query->bindValue(
-        ":veterinarian_full_name", veterinarian_name
+        "veterinarian_full_name", veterinarian_name
     );
     query->bindValue(
-        ":ration_name", ration
+        ":ration_name", ration_name
     );
     query->bindValue(
         ":ration_type_name", ration_type
     );
 
-        query->exec();
+    query->exec();
 
-    db.close();
+    this->db.close();
+
 }
 
-QString Bird::getCountryCode()
+void Reptile::updateAnimal(QString id, QString name, int age, QString sex,QString av_temp, QString wint_st_d,QString wint_en_d, QString l_a_name, QString l_a_characteristic, QString caretaker_name, QString veterinarian_name, QString ration_name, QString ration_type)
 {
-    return this->wintering_place.country_code;
-}
-
-QString Bird::getCountryName()
-{
-    return this->wintering_place.country_code;
-}
-
-QString Bird::getStartDate()
-{
-    return this->wintering_place.start_date;
-}
-
-QString Bird::getEndDate()
-{
-    return this->wintering_place.end_date;
-}
-
-void Bird::updateAnimal(QString id, QString name, int age, QString sex, QString country_code, QString country_name,QString start_date, QString end_date, QString la_name, QString la_characteristic, QString caretaker_name, QString veterinarian_name,QString ration, QString ration_type)
-{
-
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(".\\data\\database.db");
 
     this->db.open();
 
-    this->query = new QSqlQuery();
     query->prepare(
-        "UPDATE Bird"
+        "UPDATE Reptile "
         ""
         "    SET "
         "      name = :name,"
-        "      age = :age, "
-        "      country_code = :country_code,"
-        "      country_name = :country_name,"
-        "      start_date = :start_date,"
-        "      end_date = :end_date,"
-        "      sex = :sex,   "
+        "      age = :age,"
+        "      sex = :sex,"
+        "      avarage_temperature = :avarage_temperature,"
+        "      wintering_start_date = :wintering_start_date,"
+        "      wintering_end_date = : wintering_end_date,"
         "      fk_l_a_id = "
         "      (SELECT living_area_id FROM LivingArea"
         "        WHERE living_area_name = :living_area_name"
         "        AND living_area_characteristic = :living_area_characteristic),"
         "      fk_e_c_id = "
-        "      (SELECT caretaker_id FROM Caretaker "
+        "      (SELECT caretaker_id FROM Caretaker"
         "        WHERE full_name = :caretaker_fn),"
         "      fk_e_v_id = "
         "      (SELECT veterinarian_id FROM Veterinarian "
@@ -161,15 +150,13 @@ void Bird::updateAnimal(QString id, QString name, int age, QString sex, QString 
         "      (SELECT ration_id FROM Ration "
         "        WHERE ration_name = :ration_name),"
         "      fk_r_t_id = "
-        "      (SELECT ration_type_id FROM RationType "
+        "      (SELECT ration_type_id FROM RationType"
         "        WHERE ration_type_name = :ration_type_name)"
+        ""
         "    WHERE identifier = :identifier"
         ";"
     );
 
-    query->bindValue(
-        ":identifier", id
-    );
     query->bindValue(
         ":name", name
     );
@@ -180,93 +167,90 @@ void Bird::updateAnimal(QString id, QString name, int age, QString sex, QString 
         ":sex", sex
     );
     query->bindValue(
-        ":country_code", country_code
+        ":avarage_temperature", av_temp
     );
     query->bindValue(
-        ":country_name", country_name
+        ":wintering_start_date", wint_st_d
     );
     query->bindValue(
-        ":start_date", start_date
+        ":wintering_end_date", wint_en_d
     );
     query->bindValue(
-        ":end_date", end_date
+        ":living_area_name", l_a_name
     );
     query->bindValue(
-        ":living_area_name", la_name
-    );
-    query->bindValue(
-        ":living_area_characteristic",
-          la_characteristic
+        ":living_area_characteristic", l_a_characteristic
     );
     query->bindValue(
         ":caretaker_full_name", caretaker_name
     );
     query->bindValue(
-        ":veterinarian_full_name", veterinarian_name
+        "veterinarian_full_name", veterinarian_name
     );
     query->bindValue(
-        ":ration_name", ration
+        ":ration_name", ration_name
     );
     query->bindValue(
         ":ration_type_name", ration_type
     );
-
-        query->exec();
-
-    this->db.close();
-}
-
-void Bird::delAnimal(QString id)
-{
-
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(".\\data\\database.db");
-
-    this->db.open();
-
-    query = new QSqlQuery();
-    query->prepare(
-        "DELETE FROM Bird "
-        "WHERE identifier = :identifier"
-    );
     query->bindValue(
         ":identifier", id
     );
-        query->exec();
+
+    query->exec();
 
     this->db.close();
 
 }
 
-void Bird::syncWithDb(QString id)
+void Reptile::delAnimal(QString id)
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(".\\data\\database.db");
+
     this->db.open();
 
     query = new QSqlQuery();
+
+    query->prepare("DELETE FROM Reptile WHERE identifier = :identifier");
+
+    query->bindValue(":identifier", id);
+
+    query->exec();
+
+    this->db.close();
+}
+
+void Reptile::syncWithDb(QString id)
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(".\\data\\database.db");
+
+    this->db.open();
+
+    query = new QSqlQuery();
+
     query->prepare(
-        "SELECT B.name, B.age, "
-        "B.country_code, B.country_name, B.start_date,"
-        "B.end_date, B.sex,"
-        ""
+        "SELECT Rpt.name, Rpt.age, Rpt.sex,"
+        "Rpt.avarage_temperature, Rpt.wintering_start_date,"
+        "Rpt.wintering_end_date,"
         "LA.living_area_name, LA.living_area_characteristic,"
         "C.full_name,"
         "V.full_name,"
         "R.ration_name,"
         "RT.ration_type_name"
-        "FROM Bird AS B"
+        "FROM Reptile AS Rpt"
         "JOIN LivingArea AS LA "
-        "ON LA.living_area_id = B.fk_l_a_id"
+        "ON LA.living_area_id = Rpt.fk_l_a_id"
         "JOIN Caretaker AS C"
-        "ON C.caretaker_id = B.fk_e_c_id"
+        "ON C.caretaker_id = Rpt.fk_e_c_id"
         "JOIN Veterinarian AS V"
-        "ON V.veterinarian_id = B.fk_e_v_id"
+        "ON V.veterinarian_id = Rpt.fk_e_v_id"
         "JOIN Ration AS R"
-        "ON R.ration_id = B.fk_r_n_id"
+        "ON R.ration_id = Rpt.fk_r_n_id"
         "JOIN RationType AS RT"
-        "ON RT.ration_type_id = B.fk_r_t_id"
-        "WHERE B.identifier = :identifier;"
+        "ON RT.ration_type_id = Rpt.fk_r_t_id"
+        "WHERE Rpt.identifier = :identifier;"
     );
 
     query->bindValue(
@@ -274,38 +258,38 @@ void Bird::syncWithDb(QString id)
     );
 
     query->exec();
+
     query->next();
 
     this->id = id;
-    name = query->value(2).toString();
 
-    age = query->value(3).toInt();
+    name = query->value(0).toString();
 
-    wintering_place.country_code =
-      query->value(4).toString();
+    age = query->value(1).toInt();
 
-    wintering_place.country_name =
-      query->value(5).toString();
+    sex = query->value(2).toString();
 
-    wintering_place.start_date =
-      query->value(6).toString();
+    average_temperature = query->value(3).toString();
 
-    wintering_place.end_date =
-      query->value(7).toString();
+    wintering_start_date = query->value(4).toString();
 
-    sex = query->value(8).toString();
+    wintering_end_date = query->value(5).toString();
 
     living_area.name =
-      query->value(9).toString();
+      query->value(6).toString();
 
     living_area.characteristic =
-      query->value(10).toString();
+      query->value(7).toString();
 
-    caretaker_name = query->value(11).toString();
+    caretaker_name = query->value(8).toString();
 
-    veterinarian_name = query->value(12).toString();
+    veterinarian_name = query->value(9).toString();
 
-    ration = query->value(13).toString();
+    ration = query->value(10).toString();
 
-    ration_type = query->value(14).toString();
+    ration_type = query->value(11).toString();
+
+    this->db.close();
+
 }
+

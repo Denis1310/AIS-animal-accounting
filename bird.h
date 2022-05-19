@@ -11,21 +11,16 @@ class Bird : public Animal
 {
 private:
     WinteringPlace wintering_place;
-    void upValuesInDb();
     QSqlDatabase db;
     QSqlQuery *query;
 
 public:
     Bird();
     ~Bird();
-    void addAnimal(QString,QString,QString,
-           QString,QString,QString,QString,
-           QString,int,QString,QString,QString,
-           QString,QString);
-    void updateAnimal (QString,QString,QString,
-           QString,QString,QString,QString,
-           QString,int,QString,QString,QString,
-           QString,QString);
+    void addAnimal(QString,QString,int,QString,QString,QString,QString,QString,QString,QString,
+                   QString,QString,QString, QString);
+    void updateAnimal(QString,QString,int,QString,QString,QString,QString,QString,QString,QString,
+                       QString,QString,QString, QString);
     void delAnimal(QString id);
     QString getCountryCode();
     QString getCountryName();

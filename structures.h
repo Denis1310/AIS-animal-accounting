@@ -16,6 +16,4 @@ struct LivingArea
     QString characteristic;
 };
 
-
-
 #endif // STRUCTURES_H
