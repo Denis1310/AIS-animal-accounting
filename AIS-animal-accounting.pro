@@ -11,23 +11,27 @@ CONFIG += c++11
 SOURCES += \
     animal.cpp \
     bird.cpp \
+    caretaker.cpp \
     database.cpp \
     employee.cpp \
     main.cpp \
     mainwindow.cpp \
     mammal.cpp \
-    reptile.cpp
+    reptile.cpp \
+    veterinarian.cpp
 
 HEADERS += \
     animal.h \
     bird.h \
+    caretaker.h \
     database.h \
     employee.h \
     mainwindow.h \
     mammal.h \
     queries.h \
     reptile.h \
-    structures.h
+    structures.h \
+    veterinarian.h
 
 FORMS += \
     mainwindow.ui

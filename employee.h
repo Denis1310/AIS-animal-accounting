@@ -14,17 +14,17 @@ protected:
 public:
     Employee();
     ~Employee();
-    void setValues();
-    void addEmployee();
-    void updateEmployee();
+    virtual void addEmployee(QString,QString,QString) = 0;
+    virtual void updateEmployee(int,QString,QString,QString) = 0;
+    virtual void syncWithDb(int) = 0;
     virtual QString getFullName() = 0;
     virtual QString getPhoneNumber() = 0;
     virtual QString getDateOfBirth() = 0;
 
 protected:
     QSqlQuery *query;
-    void setValuesInDb();
-    void syncWithDb();
+    QSqlDatabase db;
+
 };
 
 #endif // EMPLOYEE_H
