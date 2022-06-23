@@ -3,7 +3,6 @@
 #include <QFile>
 #include <QDir>
 #include <QSqlError>
-#include <QDebug>
 #ifndef DATABASE_H
 #define DATABASE_H
 
@@ -22,6 +21,16 @@ private:
 public:
     DataBase();
     ~DataBase();
+    int getRationTypesCount();
+    int getRationsCount();
+    int getLivingAreasCount();
+    int getCaretakersCount();
+    int getVeterinariansCount();
+    QString getRationNameByID(int id);
+    QString getRationTypeByID(int id);
+    QString getLivingAreaByID(int id);
+    QSqlDatabase& getDB();
+
 };
 
 #endif // DATABASE_H

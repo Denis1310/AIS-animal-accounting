@@ -101,7 +101,7 @@ void DataBase::createDbFile()
         "    FOREIGN KEY ( fk_r_n_id )"
         "      REFERENCES Ration ( ration_id ),"
         "    FOREIGN KEY ( fk_r_t_id )"
-        "      REFERENCES Ration ( ration_type_id )"
+        "      REFERENCES RationType ( ration_type_id )"
         ");"
     );
 
@@ -130,7 +130,7 @@ void DataBase::createDbFile()
         "    FOREIGN KEY ( fk_r_n_id ) "
         "      REFERENCES Ration ( ration_id ),"
         "    FOREIGN KEY ( fk_r_t_id ) "
-        "      REFERENCES Ration ( ration_type_id )"
+        "      REFERENCES RationType ( ration_type_id )"
         ");"
     );
 
@@ -158,17 +158,14 @@ void DataBase::createDbFile()
         "    FOREIGN KEY ( fk_r_n_id ) "
         "      REFERENCES Ration ( ration_id ),"
         "    FOREIGN KEY ( fk_r_t_id ) "
-        "      REFERENCES Ration ( ration_type_id )"
+        "      REFERENCES RationType ( ration_type_id )"
         ");"
     );
 
-    this->db.close();
 }
 
 void DataBase::fillRationInDb()
 {
-    this->db.open();
-
     this->query = new QSqlQuery();
     query->exec(
         "INSERT INTO Ration ("
@@ -178,14 +175,10 @@ void DataBase::fillRationInDb()
         "('корм для ссавців'),"
         "('корм для рептилій');"
     );
-
-    this->db.close();
 }
 
 void DataBase::fillRationTypeInDb()
 {
-    this->db.open();
-
     this->query = new QSqlQuery();
     query->exec(
         "INSERT INTO RationType ("
@@ -196,36 +189,171 @@ void DataBase::fillRationTypeInDb()
         "('збалансований');"
 
     );
-
-    this->db.close();
 }
 
 void DataBase::fillLivingAreasInDb()
 {
-    this->db.open();
-
     this->query = new QSqlQuery();
     query->exec(
-        "INSERT INTO LivingArea ("
-        "   living_area_name,"
-        "   living_area_characteristic,"
-        ") VALUES"
-        "('1 зона', 'для птахів'),"
-        "('2 зона', 'для птахів'),"
-        "('3 зона', 'для птахів'),"
-        "('4 зона', 'для птахів'),"
-        "('5 зона', 'для птахів'),"
-        "('6 зона', 'для рептилій'),"
-        "('7 зона', 'для рептилій'),"
-        "('8 зона', 'для рептилій'),"
-        "('9 зона', 'для рептилій'),"
-        "('10 зона', 'для рептилій'),"
-        "('11 зона', 'для ссавців'),"
-        "('12 зона', 'для ссавців'),"
-        "('13 зона', 'для ссавців'),"
-        "('14 зона', 'для ссавців'),"
-        "('15 зона', 'для ссавців');"
+        "INSERT INTO LivingArea(       "
+        "   living_area_name,          "
+        "   living_area_charactetistic "
+        ") VALUES                      "
+        "('1 зона'  , 'для птахів'),   "
+        "('2 зона'  , 'для птахів'),   "
+        "('3 зона'  , 'для птахів'),   "
+        "('4 зона'  , 'для птахів'),   "
+        "('5 зона'  , 'для птахів'),   "
+        "('6 зона'  , 'для рептилій'), "
+        "('7 зона'  , 'для рептилій'), "
+        "('8 зона'  , 'для рептилій'), "
+        "('9 зона'  , 'для рептилій'), "
+        "('10 зона'  , 'для рептилій'),"
+        "('11 зона'  , 'для ссавців'), "
+        "('12 зона'  , 'для ссавців'), "
+        "('13 зона'  , 'для ссавців'), "
+        "('14 зона'  , 'для ссавців'), "
+        "('15 зона'  , 'для ссавців'); "
     );
 
     this->db.close();
 }
+
+int DataBase::getCaretakersCount()
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(".\\data\\database.db");
+
+        this->db.open();
+
+    query = new QSqlQuery();
+
+    query->exec("SELECT COUNT(*) FROM Caretaker;");
+        this->db.close();
+    query->next();
+
+    return query->value(0).toInt();
+}
+
+int DataBase::getVeterinariansCount()
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(".\\data\\database.db");
+
+        this->db.open();
+
+    query = new QSqlQuery();
+
+    query->exec("SELECT COUNT(*) FROM Veterinarian;");
+        this->db.close();
+    query->next();
+
+    return query->value(0).toInt();
+
+}
+
+int DataBase::getRationsCount()
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(".\\data\\database.db");
+
+        this->db.open();
+
+    query = new QSqlQuery();
+
+    query->exec("SELECT COUNT(*) FROM Ration;");
+        this->db.close();
+    query->next();
+
+    return query->value(0).toInt();
+}
+
+int DataBase::getLivingAreasCount()
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(".\\data\\database.db");
+
+        this->db.open();
+
+    query = new QSqlQuery();
+
+    query->exec("SELECT COUNT(*) FROM LivingArea;");
+        this->db.close();
+    query->next();
+
+    return query->value(0).toInt();
+}
+
+int DataBase::getRationTypesCount()
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(".\\data\\database.db");
+
+        this->db.open();
+
+    query = new QSqlQuery();
+
+    query->exec("SELECT COUNT(*) FROM RationType;");
+
+        this->db.close();
+
+    query->next();
+
+    return query->value(0).toInt();
+}
+
+QSqlDatabase& DataBase::getDB()
+{
+    return this->db;
+}
+
+QString DataBase::getRationNameByID(int id)
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(".\\data\\database.db");
+
+        this->db.open();
+
+    query = new QSqlQuery();
+
+    query->prepare("SELECT ration_name FROM Ration WHERE ration_id = :id");
+    query->bindValue(":id", id);
+    query->exec();
+        this->db.close();
+    query->next();
+    return query->value(0).toString();
+}
+
+QString DataBase::getRationTypeByID(int id)
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(".\\data\\database.db");
+
+        this->db.open();
+
+    query = new QSqlQuery();
+    query->prepare("SELECT  ration_type_name FROM RationType WHERE ration_type_id = :id");
+    query->bindValue(":id", id);
+    query->exec();
+        this->db.close();
+    query->next();
+    return query->value(0).toString();
+}
+
+QString DataBase::getLivingAreaByID(int id)
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(".\\data\\database.db");
+
+        this->db.open();
+
+    query = new QSqlQuery();
+    query->prepare("SELECT living_area_name FROM LivingArea WHERE living_area_id = :id");
+    query->bindValue(":id", id);
+    query->exec();
+        this->db.close();
+    query->next();
+    return query->value(0).toString();
+}
+
+

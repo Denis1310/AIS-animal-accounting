@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     animal.cpp \
+    animalsform.cpp \
     bird.cpp \
     caretaker.cpp \
     database.cpp \
@@ -18,23 +19,36 @@ SOURCES += \
     mainwindow.cpp \
     mammal.cpp \
     reptile.cpp \
-    veterinarian.cpp
+    updateanimalform.cpp \
+    updateworkersform.cpp \
+    veterinarian.cpp \
+    viewanimalsform.cpp \
+    workersform.cpp
 
 HEADERS += \
     animal.h \
+    animalsform.h \
     bird.h \
     caretaker.h \
     database.h \
     employee.h \
     mainwindow.h \
     mammal.h \
-    queries.h \
     reptile.h \
     structures.h \
-    veterinarian.h
+    updateanimalform.h \
+    updateworkersform.h \
+    veterinarian.h \
+    viewanimalsform.h \
+    workersform.h
 
 FORMS += \
-    mainwindow.ui
+    animalsform.ui \
+    mainwindow.ui \
+    updateanimalform.ui \
+    updateworkersform.ui \
+    viewanimalsform.ui \
+    workersform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

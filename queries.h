@@ -1,16 +1,7 @@
 #include <QString>
 #ifndef QUERIES_H
 #define QUERIES_H
-
-
-
-
-
-
-
 /*
-
-
 QString insert_mammal_text =
         "INSERT INTO Mammal"
         "("
@@ -105,8 +96,6 @@ QString insert_caretaker_text =
         "    :date_of_birth"
         ");"
         ;
-
-
 
 QString update_mammal_text =
         "UPDATE Mammal "

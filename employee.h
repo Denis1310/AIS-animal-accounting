@@ -1,6 +1,7 @@
 #include <QString>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QSqlError>
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 
@@ -12,17 +13,15 @@ protected:
     QString date_of_birth;
 
 public:
-    Employee();
-    ~Employee();
-    virtual void addEmployee(QString,QString,QString) = 0;
-    virtual void updateEmployee(int,QString,QString,QString) = 0;
     virtual void syncWithDb(int) = 0;
-    virtual QString getFullName() = 0;
-    virtual QString getPhoneNumber() = 0;
-    virtual QString getDateOfBirth() = 0;
+    virtual bool addEmployee(QString,QString,QString) = 0;
+    virtual bool updateEmployee(int,QString,QString,QString) = 0;
+    virtual QString getFullNameByID(int id) = 0;
+    QString getFullName();
+    QString getPhoneNumber();
+    QString getDateOfBirth();
 
 protected:
-    QSqlQuery *query;
     QSqlDatabase db;
 
 };

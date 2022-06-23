@@ -2,15 +2,16 @@
 #ifndef CARETAKER_H
 #define CARETAKER_H
 
-
 class Caretaker : public Employee
 {
+private:
+    QSqlQuery *query;
 public:
-    Caretaker();
     ~Caretaker();
-    void addEmployee(QString,QString,QString) override;
-    void updateEmployee(int,QString,QString,QString) override;
+    bool addEmployee(QString,QString,QString) override;
+    bool updateEmployee(int,QString,QString,QString) override;
     void syncWithDb(int) override;
+    QString getFullNameByID(int id) override;
 
 };
 

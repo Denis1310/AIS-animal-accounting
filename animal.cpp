@@ -1,15 +1,5 @@
 #include "animal.h"
 
-Animal::Animal()
-{
-
-}
-
-Animal::~Animal()
-{
-    delete this->query;
-}
-
 QString Animal::getID()
 {
     return this->id;

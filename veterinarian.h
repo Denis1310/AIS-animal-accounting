@@ -5,12 +5,16 @@
 
 class Veterinarian : public Employee
 {
+private:
+    QSqlQuery *query;
+
 public:
     Veterinarian();
     ~Veterinarian();
-    void addEmployee(QString,QString,QString) override;
-    void updateEmployee(int,QString,QString,QString) override;
+    bool addEmployee(QString,QString,QString) override;
+    bool updateEmployee(int,QString,QString,QString) override;
     void syncWithDb(int) override;
+    QString getFullNameByID(int id) override;
 };
 
 #endif // VETERINARIAN_H

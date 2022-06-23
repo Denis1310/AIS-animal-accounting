@@ -1,32 +1,25 @@
 #include "structures.h"
-#include "queries.h"
 #include "animal.h"
-#include <QSqlDatabase>
-#include <QSqlQuery>
 #ifndef BIRD_H
 #define BIRD_H
-
 
 class Bird : public Animal
 {
 private:
     WinteringPlace wintering_place;
-    QSqlDatabase db;
     QSqlQuery *query;
 
 public:
     Bird();
     ~Bird();
-    void addAnimal(QString,QString,int,QString,QString,QString,QString,QString,QString,QString,
-                   QString,QString,QString, QString);
-    void updateAnimal(QString,QString,int,QString,QString,QString,QString,QString,QString,QString,
-                       QString,QString,QString, QString);
-    void delAnimal(QString id);
+    bool addAnimal(QString,QString,int,QString,QString,QString,QString,QString,QString,QString,QString,QString, QString);
+    bool updateAnimal(QString,QString,int,QString,QString,QString,QString,QString,QString,QString,QString,QString, QString);
+    bool delAnimal(QString id) override;
     QString getCountryCode();
     QString getCountryName();
     QString getStartDate();
     QString getEndDate();
-    void syncWithDb(QString id);
+    void syncWithDb(QString) override;
 };
 
 #endif // BIRD_H

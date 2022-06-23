@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "workersform.h"
 #include "database.h"
 
 #include <QApplication>
@@ -9,7 +10,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    DataBase database;
+    DataBase db;
 
     return a.exec();
 }
